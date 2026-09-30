@@ -24,15 +24,17 @@ app.get('/', (req, res) => {
   res.send('Secure Note Taking API is running...');
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log('MongoDB Connected Successfully');
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server is running on port ${PORT}`);
     });
   })
   .catch((err) => {
     console.error('Database connection failed:', err.message);
+    process.exit(1); 
   });
